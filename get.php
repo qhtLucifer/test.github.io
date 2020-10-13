@@ -1,4 +1,3 @@
 <?php
-    $t = $_GET['text'];
-    echo $t;
+    echo $_GET["text"];
 ?>
