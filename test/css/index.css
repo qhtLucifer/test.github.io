@@ -1,0 +1,54 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background: #000000;
+}
+a{
+    text-decoration: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    background: linear-gradient(90deg, #03a9f4, #f441a5,
+     #ffeb3b, #03a9f4);
+    background-size: 400%;
+    width: 300px;
+    height: 100px;
+    line-height: 100px;
+    text-shadow: #000000;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 45px;
+    z-index: 1;
+}
+a::before{
+    content:"";
+    position: absolute;
+    left: -7px;
+    right: -7px;
+    top: -7px;
+    bottom: -7px;
+    background: linear-gradient(90deg, #03a9f4, #f441a5,
+    #ffeb3b, #03a9f4);
+    background-size: 400%;
+    border-radius: 45px;
+    filter: blur(20px);
+    z-index: -1;
+}
+
+a:hover{
+    animation: sun 8s infinite;
+}
+
+a:hover::before{
+    animation: sun 8s infinite;
+}
+
+@keyframes sun{
+    100%{
+        background-position: -400% 0;
+    }
+}
