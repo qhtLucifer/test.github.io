@@ -1,18 +1,37 @@
 <html>
-    <title>title</title>
-    <head>
-        <script>
-            function fun(){
-                alert("test");
+<title>title</title>
+
+<head>
+    
+</head>
+<button type="button" onclick="fun()">click here</button>
+<br>
+<a href="/test/1.mp3">download</a>
+<br>
+<p id="displayer">Click the button to refresh</p>
+
+<audio src="/test/1.mp3"></audio>
+<script>
+    function GetUrlPath() {
+        try {
+            var url = document.location.toString();
+            if (url.indexOf("/") != -1) {
+                url = url.substring(0, url.lastIndexOf("/"));
             }
-        </script>
-    </head>
-    <button type="button" onclick="fun()">click here</button>
-    <br>
-    <a href="/test/index.html">down;oad</a>
-    <br>
-    <form action="get.php" method="GET">
-        <input type="text" name = "text">
-        <input type="submit" value="check">
-    </form>
+            return url;
+        }
+         catch (error) {
+            alert(error);
+    }
+    }
+
+    function fun() {
+        try {
+        document.getElementById("displayer").innerHTML=window.document.location.href;
+            
+        } catch (error) {
+            alert(error);
+        }
+    }
+</script>
 </html>
