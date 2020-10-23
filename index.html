@@ -1,40 +1,18 @@
 <html>
-<title>title</title>
 
 <head>
-    
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/buttons.css" />
+    <title>Welcome to my home</title>
 </head>
-<button type="button" onclick="fun()">click here</button>
-<br>
-<a href="/test.github.io/1.mp3">download</a>
-<br>
-<p id="displayer">Click the button to refresh</p>
+<div class="left_tab">
+    <a href="" class="left_tab_button">C</a>
+    <a href="" class="left_tab_button">C++</a>
+    <a href="" class="left_tab_button">html</a>
+    <a href="" class="left_tab_button">php</a>
+    <a href="" class="left_tab_button">javascript</a>
+    <a href="" class="left_tab_button">python</a>
+</div>
 
-<audio src="1.mp3" controls="controls">
-    您的浏览器不支持 audio 标签。
-    </audio>
-<video 
-<script>
-    function GetUrlPath() {
-        try {
-            var url = document.location.toString();
-            if (url.indexOf("/") != -1) {
-                url = url.substring(0, url.lastIndexOf("/"));
-            }
-            return url;
-        }
-         catch (error) {
-            alert(error);
-    }
-    }
 
-    function fun() {
-        try {
-        document.getElementById("displayer").innerHTML=window.document.location.href;
-            
-        } catch (error) {
-            alert(error);
-        }
-    }
-</script>
 </html>

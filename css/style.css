@@ -1,0 +1,22 @@
+.left_tab {
+    display: block;
+    background-color: #424242;
+    width: 140px;
+    height: 100%;
+    text-decoration: none;
+}
+
+.left_tab_button {
+    display: block;
+    color: #fafafa;
+    width: 120px;
+    height: 40px;
+    text-decoration: none;
+    font-size: 18px;
+    padding-left: 20px;
+    line-height: 40px;
+}
+
+.left_tab_button:hover {
+    background-color: #9e9e9e;
+}
