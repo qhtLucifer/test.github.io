@@ -1,22 +1,53 @@
-.left_tab {
-    display: block;
-    background-color: #424242;
+ul,
+li {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+.div_a {
     width: 140px;
-    height: 100%;
-    text-decoration: none;
+    float: left;
 }
 
-.left_tab_button {
-    display: block;
-    color: #fafafa;
-    width: 120px;
-    height: 40px;
-    text-decoration: none;
+.div_a li {
+    width: 140px;
+    height: 50px;
+    cursor: pointer;
+    background-color: #424242;
+    color: #FAFAFA;
+    line-height: 50px;
     font-size: 18px;
-    padding-left: 20px;
-    line-height: 40px;
 }
 
-.left_tab_button:hover {
-    background-color: #9e9e9e;
+.div_a1 {
+    width: 140px;
+    height: fit-content;
+    position: relative;
+    top: -50px;
+    left: 140px;
+    z-index: 999;
+    display: none;
+    font-size: medium;
+}
+
+.div_a1 li {
+    width: 140px;
+    height: 50px;
+    background-color: #757575;
+    cursor: pointer;
+    line-height: 50px;
+    font-size: 16px;
+}
+
+.div_a1 li:hover {
+    color: #9e9e9e;
+}
+
+.div_a li:hover {
+    background-color: #757575;
+}
+
+.div_a li:hover .div_a1 {
+    display: block;
 }
