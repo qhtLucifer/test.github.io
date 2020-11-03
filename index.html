@@ -9,6 +9,20 @@
             document.getElementById("container").innerHTML = '<object type="text/html" data="./' + str + '" width="75%" height="600px"></object>';
         }
     </script>
+    <script type="text/javascript" charset="utf-8" src="https://files.cnblogs.com/files/liuzhou1/L2Dwidget.0.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://files.cnblogs.com/files/liuzhou1/L2Dwidget.min.js"></script>
+    <script type="text/javascript">
+        L2Dwidget.init({
+            "display": {
+                "superSample": 2,
+                "width": 200,
+                "height": 400,
+                "position": "left",
+                "hOffset": 0,
+                "vOffset": 0
+            }
+        });
+    </script>
 </head>
 <div class="div_a">
     <ul>
@@ -23,10 +37,19 @@
             </div>
         </li>
         <li>C++
-            <div class="div_a1">这是里面的内容这是里面的内容这是里面的内容</div>
+            <div class="div_a1">
+
+            </div>
         </li>
         <li>python
-            <div class="div_a1">这是里面的内容这是里面的内容这是里面的内容</div>
+            <div class="div_a1">
+                <ul>
+                    <li onclick='show_info("C/bit_operation.html")'>列表表达式嵌套</li>
+                    <li>算法</li>
+                    <li>算法</li>
+                    <li>算法</li>
+                </ul>
+            </div>
         </li>
         <li>SQL
             <div class="div_a1">这是里面的内容这是里面的内容这是里面的内容</div>
