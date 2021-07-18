@@ -28,29 +28,36 @@
 
             f1(ctx, w / 2 - 200, h / 2, 'black', 10)
 
-            await sleep(200)
-            f2(ctx, w / 2 - 200, h / 2, 'black', 10)
+            await sleep(150)
+            for (let d = 45; d > 0; d -= 5) {
 
-            await sleep(200)
-            f3(ctx, w / 2 - 200, h / 2, 'black', 10)
+                f2(ctx, w / 2 - 200, h / 2, 'black', 10, d)
 
-            await sleep(200)
+                await sleep(50)
+            }
             f4(ctx, w / 2 - 200, h / 2, 'black', 10)
 
-            await sleep(400)
+            await sleep(300)
 
 
-            var distance = 100
+            var distance = 300
             for (let delta = 0; delta <= distance; delta += distance / 10) {
 
                 f5(ctx, w / 2 - 200 + delta, h / 2, 'black', 10)
 
-                await sleep(200)
+                await sleep(100)
                 f6(ctx, w / 2 - 200 + delta, h / 2, 'black', 10)
 
-                await sleep(200)
+                await sleep(100)
                 f7(ctx, w / 2 - 200 + delta, h / 2, 'black', 10)
-                await sleep(200)
+                await sleep(100)
+            }
+            f6(ctx, w / 2 - 200 + distance, h / 2, 'black', 10)
+            await sleep(200)
+            var len_ = 45;
+            for (let delta = 0; delta <= len_; delta += 5) {
+                f8(ctx, w / 2 - 200 + distance, h / 2, 'black', 10, delta)
+                await sleep(50);
             }
         }
 
@@ -120,7 +127,7 @@
             ctx.restore();
         }
 
-        function f2(ctx, x, y, color, r) {
+        function f2(ctx, x, y, color, r, l) {
             ctx.clearRect(0, 0, w, h)
             ctx.beginPath();
             ctx.arc(x, y, headSize, 0, 2 * Math.PI);
@@ -152,11 +159,11 @@
             ctx.lineCap = "round";
             //left
             ctx.moveTo(x - Math.sin(Math.PI / 6) * bodySize / 2, y + Math.cos(Math.PI / 6) * bodySize / 2);
-            ctx.lineTo(x - Math.sin(Math.PI / 6) * bodySize / 2 - Math.sin(Math.PI / 6) * armLength / 1.5, y + Math.cos(Math.PI / 6) * bodySize / 2 - Math.cos(Math.PI / 6) * armLength / 1.5);
+            ctx.lineTo(x + l, y + Math.cos(Math.PI / 6) * bodySize / 2 - Math.cos(Math.PI / 6) * l);
             //right
 
             ctx.moveTo(x + Math.sin(Math.PI / 6) * bodySize / 2, y + Math.cos(Math.PI / 6) * bodySize / 2);
-            ctx.lineTo(x + Math.sin(Math.PI / 6) * bodySize / 2 + Math.sin(Math.PI / 6) * armLength / 1.5, y + Math.cos(Math.PI / 6) * bodySize / 2 - Math.cos(Math.PI / 6) * armLength / 1.5);
+            ctx.lineTo(x + l, y + Math.cos(Math.PI / 6) * bodySize / 2 - Math.cos(Math.PI / 6) * l);
 
             ctx.strokeStyle = color;
             ctx.lineWidth = 5;
@@ -169,7 +176,7 @@
             ctx.shadowBlur = 20;
             ctx.lineJoin = "round";
             ctx.lineCap = "round";
-            ctx.translate(x + Math.sin(Math.PI / 6) * bodySize / 2 + Math.sin(Math.PI / 6) * armLength / 1.5, y + Math.cos(Math.PI / 6) * bodySize / 2 - Math.cos(Math.PI / 6) * armLength / 1.5);
+            ctx.translate(x + l, y + Math.cos(Math.PI / 6) * bodySize / 2 - Math.cos(Math.PI / 6) * l);
             ctx.rotate(-45 * Math.PI / 180);
             ctx.arc(r, 0, r, 0, 2 * Math.PI);
             ctx.arc(2 * r, r, r, 0, 2 * Math.PI);
@@ -485,6 +492,69 @@
 
             ctx.restore();
         }
+
+
+
+
+        function f8(ctx, x, y, color, r, l) {
+            ctx.clearRect(0, 0, w, h)
+            ctx.beginPath();
+            ctx.arc(x, y, headSize, 0, 2 * Math.PI);
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 5;
+            ctx.lineJoin = "round";
+            ctx.lineCap = "round"
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.lineJoin = "round";
+            ctx.lineCap = "round";
+            ctx.moveTo(x - Math.sin(Math.PI / 6) * headSize, y + Math.cos(Math.PI / 6) * headSize);
+            ctx.lineTo(x - Math.sin(Math.PI / 6) * bodySize, y + Math.cos(Math.PI / 6) * bodySize);
+
+            ctx.moveTo(x + Math.sin(Math.PI / 6) * headSize, y + Math.cos(Math.PI / 6) * headSize);
+            ctx.lineTo(x + Math.sin(Math.PI / 6) * bodySize, y + Math.cos(Math.PI / 6) * bodySize);
+
+            ctx.moveTo(x - Math.sin(Math.PI / 6) * bodySize, y + Math.cos(Math.PI / 6) * bodySize);
+            ctx.lineTo(x + Math.sin(Math.PI / 6) * bodySize, y + Math.cos(Math.PI / 6) * bodySize);
+
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 5;
+            ctx.stroke();
+
+            //手臂
+            ctx.beginPath();
+            ctx.lineJoin = "round";
+            ctx.lineCap = "round";
+            //left
+            ctx.moveTo(x - Math.sin(Math.PI / 6) * bodySize / 2, y + Math.cos(Math.PI / 6) * bodySize / 2);
+            ctx.lineTo(x + l, y + 45);
+            //right
+
+            ctx.moveTo(x + Math.sin(Math.PI / 6) * bodySize / 2, y + Math.cos(Math.PI / 6) * bodySize / 2);
+            ctx.lineTo(x + l, y + 45);
+
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 5;
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.save();
+            ctx.fillStyle = "red";
+            ctx.shadowColor = "red";
+            ctx.shadowBlur = 20;
+            ctx.lineJoin = "round";
+            ctx.lineCap = "round";
+            ctx.translate(x + l, y + 45);
+            ctx.rotate(-45 * Math.PI / 180);
+            ctx.arc(r, 0, r, 0, 2 * Math.PI);
+            ctx.arc(2 * r, r, r, 0, 2 * Math.PI);
+            ctx.rect(0, 0, 2 * r, 2 * r);
+            ctx.fill();
+            ctx.restore();
+        }
+
+
 
         function sleep(time) {
             return new Promise((resolve) => setTimeout(resolve, time));
