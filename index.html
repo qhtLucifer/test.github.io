@@ -51,17 +51,17 @@
         canvas.height = screenH;
 
         async function draw() {
-
-            f1(ctx, w / 2 - 200, h / 2, 'black', 10)
+            let sx = w / 2 - 100;
+            f1(ctx, sx, h / 2, 'black', 10)
 
             await sleep(150)
             for (let d = 45; d > 0; d -= 5) {
 
-                f2(ctx, w / 2 - 200, h / 2, 'black', 10, d)
+                f2(ctx, sx, h / 2, 'black', 10, d)
 
                 await sleep(50)
             }
-            f4(ctx, w / 2 - 200, h / 2, 'black', 10)
+            f4(ctx, sx, h / 2, 'black', 10)
 
             await sleep(300)
 
@@ -69,20 +69,20 @@
             var distance = 300
             for (let delta = 0; delta <= distance; delta += distance / 10) {
 
-                f5(ctx, w / 2 - 200 + delta, h / 2, 'black', 10)
+                f5(ctx, sx + delta, h / 2, 'black', 10)
 
                 await sleep(100)
-                f6(ctx, w / 2 - 200 + delta, h / 2, 'black', 10)
+                f6(ctx, sx + delta, h / 2, 'black', 10)
 
                 await sleep(100)
-                f7(ctx, w / 2 - 200 + delta, h / 2, 'black', 10)
+                f7(ctx, sx + delta, h / 2, 'black', 10)
                 await sleep(100)
             }
-            f6(ctx, w / 2 - 200 + distance, h / 2, 'black', 10)
+            f6(ctx, sx + distance, h / 2, 'black', 10)
             await sleep(200)
             var len_ = 45;
             for (let delta = 0; delta <= len_; delta += 5) {
-                f8(ctx, w / 2 - 200 + distance, h / 2, 'black', 10, delta)
+                f8(ctx, sx + distance, h / 2, 'black', 10, delta)
                 await sleep(50);
             }
         }
@@ -598,6 +598,7 @@
 
 
         function right(ctx, x, y, color, r) {
+            x += 100
             ctx.beginPath();
             ctx.arc(x, y, headSize, 0, 2 * Math.PI);
             ctx.strokeStyle = color;
