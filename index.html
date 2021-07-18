@@ -13,17 +13,43 @@
 <body>
     <canvas id="mainCanvas" width="700" height="1000"></canvas>
     <script>
-        var canvas_ = document.getElementById("mainCanvas");
-        var ctx = canvas_.getContext("2d");
+        var canvas = document.getElementById("mainCanvas");
+        var ctx = canvas.getContext("2d");
         var h = screen.height - 40;
         var w = screen.width - 20;
         var head_x = 0,
             head_animation_counter;
-        canvas_.setAttribute('width', w);
-        canvas_.setAttribute('height', h);
+        var rx = w / 2 + 250,
+            ry = h / 2;
         const headSize = 40
         const bodySize = 140
         const armLength = 45
+
+        let screenW = document.documentElement.clientWidth; //屏幕宽度
+        let screenH = document.documentElement.clientHeight; //屏幕高度
+        let gameW = 1529,
+            gameH = 832; //标准分辨率,也就是你开发时的分辨率 TODO:这里可以自行修改
+
+        let kW = screenW / gameW; //屏幕宽度与标准宽度的比值
+        let kH = 1; //屏幕高度与标准高度的比值
+
+        //我们先根据宽度比例适配
+        let dY = (screenH - gameH * kW) / 2; //黑色区域的高度（紫色区域顶部与屏幕顶部的距离）
+        //当dY小于0时，我们不得不把画面给纵向压缩了。不然部分内容就会到屏幕外面去了
+        if (dY < 0) {
+            dY = 0;
+            kH = screenH / gameH;
+        }
+
+        let scaleH = kW; //高度缩放率，默认以宽度比例
+        if (kH !== 1) {
+            scaleH = kH;
+        }
+
+        //设置canvas的绝对大小与屏幕一致
+        canvas.width = screenW;
+        canvas.height = screenH;
+
         async function draw() {
 
             f1(ctx, w / 2 - 200, h / 2, 'black', 10)
@@ -125,6 +151,7 @@
             ctx.rect(0, 0, 2 * r, 2 * r);
             ctx.fill();
             ctx.restore();
+            right(ctx, rx, ry, color, r);
         }
 
         function f2(ctx, x, y, color, r, l) {
@@ -183,6 +210,7 @@
             ctx.rect(0, 0, 2 * r, 2 * r);
             ctx.fill();
             ctx.restore();
+            right(ctx, rx, ry, color, r);
         }
 
         function f3(ctx, x, y, color, r) {
@@ -241,6 +269,7 @@
             ctx.rect(0, 0, 2 * r, 2 * r);
             ctx.fill();
             ctx.restore();
+            right(ctx, rx, ry, color, r);
         }
 
         function f4(ctx, x, y, color, r) {
@@ -299,6 +328,7 @@
             ctx.rect(0, 0, 2 * r, 2 * r);
             ctx.fill();
             ctx.restore();
+            right(ctx, rx, ry, color, r);
         }
 
 
@@ -306,6 +336,7 @@
         var deltaY = 20
 
         function f5(ctx, x, y, color, r) {
+
             ctx.clearRect(0, 0, w, h);
             ctx.save();
             ctx.translate(x, y + deltaY);
@@ -368,6 +399,7 @@
             ctx.restore();
 
             ctx.restore();
+            right(ctx, rx, ry, color, r);
         }
 
         function f6(ctx, x, y, color, r) {
@@ -426,9 +458,11 @@
             ctx.rect(0, 0, 2 * r, 2 * r);
             ctx.fill();
             ctx.restore();
+            right(ctx, rx, ry, color, r);
         }
 
         function f7(ctx, x, y, color, r) {
+
             ctx.clearRect(0, 0, w, h);
             ctx.save();
             ctx.translate(x, y + deltaY);
@@ -491,6 +525,7 @@
             ctx.restore();
 
             ctx.restore();
+            right(ctx, rx, ry, color, r);
         }
 
 
@@ -552,6 +587,7 @@
             ctx.rect(0, 0, 2 * r, 2 * r);
             ctx.fill();
             ctx.restore();
+            right(ctx, rx, ry, color, r);
         }
 
 
@@ -560,6 +596,49 @@
             return new Promise((resolve) => setTimeout(resolve, time));
         }
 
+
+        function right(ctx, x, y, color, r) {
+            ctx.beginPath();
+            ctx.arc(x, y, headSize, 0, 2 * Math.PI);
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 5;
+            ctx.lineJoin = "round";
+            ctx.lineCap = "round"
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.lineJoin = "round";
+            ctx.lineCap = "round";
+            ctx.moveTo(x - Math.sin(Math.PI / 6) * headSize, y + Math.cos(Math.PI / 6) * headSize);
+            ctx.lineTo(x - Math.sin(Math.PI / 6) * bodySize, y + Math.cos(Math.PI / 6) * bodySize);
+
+            ctx.moveTo(x + Math.sin(Math.PI / 6) * headSize, y + Math.cos(Math.PI / 6) * headSize);
+            ctx.lineTo(x + Math.sin(Math.PI / 6) * bodySize, y + Math.cos(Math.PI / 6) * bodySize);
+
+            ctx.moveTo(x - Math.sin(Math.PI / 6) * bodySize, y + Math.cos(Math.PI / 6) * bodySize);
+            ctx.lineTo(x + Math.sin(Math.PI / 6) * bodySize, y + Math.cos(Math.PI / 6) * bodySize);
+
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 5;
+            ctx.stroke();
+
+            //手臂
+            ctx.beginPath();
+            ctx.lineJoin = "round";
+            ctx.lineCap = "round";
+            //left
+            ctx.moveTo(x - Math.sin(Math.PI / 6) * bodySize / 2, y + Math.cos(Math.PI / 6) * bodySize / 2);
+            ctx.lineTo(x - Math.sin(Math.PI / 6) * bodySize / 2 - Math.sin(Math.PI / 4.5) * armLength, y + Math.cos(Math.PI / 6) * bodySize / 2 - Math.cos(Math.PI / 4.5) * armLength);
+            //right
+
+            ctx.moveTo(x + Math.sin(Math.PI / 6) * bodySize / 2, y + Math.cos(Math.PI / 6) * bodySize / 2);
+            ctx.lineTo(x + Math.sin(Math.PI / 6) * bodySize / 2 + Math.sin(Math.PI / 4.5) * armLength, y + Math.cos(Math.PI / 6) * bodySize / 2 - Math.cos(Math.PI / 4.5) * armLength);
+
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 5;
+            ctx.stroke();
+
+        }
         draw();
     </script>
 </body>
