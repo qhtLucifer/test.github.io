@@ -27,33 +27,29 @@
         let screenH = document.documentElement.clientHeight; //屏幕高度
         h = screenH;
         w = screenW;
-        var rx = w / 2 + 150,
-            ry = h / 2;
+        var rx = w / 2,
+            ry = h / 2 - 100;
         let gameW = 1529,
-            gameH = 832; //标准分辨率,也就是你开发时的分辨率 TODO:这里可以自行修改
+            gameH = 832; //标准分辨率,也就是开发时的分辨率
         var sx;
         let kW = screenW / gameW; //屏幕宽度与标准宽度的比值
         let kH = 1; //屏幕高度与标准高度的比值
 
-        //我们先根据宽度比例适配
+        //根据宽度比例适配
         let dY = (screenH - gameH * kW) / 2; //黑色区域的高度（紫色区域顶部与屏幕顶部的距离）
-        //当dY小于0时，我们不得不把画面给纵向压缩了。不然部分内容就会到屏幕外面去了
+        //当dY小于0时，画面纵向压缩。不然部分内容就会到屏幕外面去了
         if (dY < 0) {
             dY = 0;
             kH = screenH / gameH;
         }
 
         let scaleH = kW; //高度缩放率，默认以宽度比例
-        if (kH !== 1) {
-            scaleH = kH;
-        }
-
         //设置canvas的绝对大小与屏幕一致
         canvas.width = screenW;
         canvas.height = screenH;
-
+        h -= 200;
         async function draw() {
-            sx = w / 2 - 200;
+            sx = w / 2 - 350;
             f1(ctx, sx, h / 2, 'black', 10)
 
             await sleep(150)
