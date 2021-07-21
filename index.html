@@ -125,7 +125,7 @@
             final_heart(ctx);
             final_left(ctx, sx + 300, h / 2, 'black', 10, 55);
             final_right(ctx, sx + 300, h / 2, 'black', 10, 55);
-            drawText(ctx, sx + 400, h / 2 - 100, "这个心好丑啊", 'black', false);
+            drawText(ctx, sx + 400, h / 2 - 100, "这个心有、丑啊", 'black', false);
 
             await sleep(2500);
             ctx.clearRect(0, 0, w, h);
@@ -157,7 +157,7 @@
             let drop_d = 2000;
             for (let index = 0; index <= drop_d; index += 20) {
                 await sleep(3);
-                ctx.clearRect(0, 0, w, 2500);
+                ctx.clearRect(0, 0, w, h);
                 final_heart(ctx);
                 final_stay_heart(ctx, sx + 300, h / 2, 'black', 10, 55);
                 final_right_beat(ctx, sx + 300, h / 2, 'black', 10, 55);
