@@ -36,7 +36,7 @@
         let kH = 1; //屏幕高度与标准高度的比值
 
         //根据宽度比例适配
-        let dY = (screenH - gameH * kW) / 2; //黑色区域的高度（紫色区域顶部与屏幕顶部的距离）
+        let dY = (screenH - gameH * kW) / 2; //黑色区域的高度
         //当dY小于0时，画面纵向压缩。不然部分内容就会到屏幕外面去了
         if (dY < 0) {
             dY = 0;
@@ -94,7 +94,7 @@
                 ctx.beginPath();
                 ctx.save();
                 ctx.strokeStyle = "red";
-                ctx.lineWidth = 20;
+                ctx.lineWidth = 10;
                 ctx.fillStyle = "#f0bfc6";
                 ctx.shadowColor = "red";
                 ctx.shadowBlur = delta + 10;
@@ -111,6 +111,59 @@
                 final_left(ctx, sx + 300, h / 2, 'black', 10, 55);
                 final_right(ctx, sx + 300, h / 2, 'black', 10, 55);
                 await sleep(20);
+            }
+            await sleep(700);
+            ctx.clearRect(0, 0, w, h);
+            final_heart(ctx);
+            final_left(ctx, sx + 300, h / 2, 'black', 10, 55);
+            final_right(ctx, sx + 300, h / 2, 'black', 10, 55);
+            drawText(ctx, sx + 357, h / 2 - 100, "...", 'black', true);
+
+
+            await sleep(2000);
+            ctx.clearRect(0, 0, w, h);
+            final_heart(ctx);
+            final_left(ctx, sx + 300, h / 2, 'black', 10, 55);
+            final_right(ctx, sx + 300, h / 2, 'black', 10, 55);
+            drawText(ctx, sx + 400, h / 2 - 100, "这个心好丑啊", 'black', false);
+
+            await sleep(2500);
+            ctx.clearRect(0, 0, w, h);
+            final_heart(ctx);
+            final_left(ctx, sx + 300, h / 2, 'black', 10, 55);
+            final_right(ctx, sx + 300, h / 2, 'black', 10, 55);
+            drawText(ctx, sx + 100, h / 2 - 100, "要饭还嫌粥凉", 'black', false);
+            await sleep(2000);
+            let final_beat_len = 10;
+            for (let index = 0; index <= final_beat_len; index += 0.5) {
+                await sleep(50);
+                ctx.clearRect(0, 0, w, h);
+                final_heart(ctx);
+                final_left(ctx, sx + 300, h / 2, 'black', 10, 55);
+                final_right_beat(ctx, sx + 300, h / 2, 'black', 10, 55);
+                beat_before(ctx, sx + 300, h / 2, 'black', 10, 55, Math.PI / 4.5 * (1 - index / (final_beat_len + 1)), index)
+
+            }
+            await sleep(200);
+            for (let index = final_beat_len; index >= 5.5; index -= 0.5) {
+                await sleep(6);
+                ctx.clearRect(0, 0, w, h);
+                final_heart(ctx);
+                final_left(ctx, sx + 300, h / 2, 'black', 10, 55);
+                final_right_beat(ctx, sx + 300, h / 2, 'black', 10, 55);
+                beat_before(ctx, sx + 300, h / 2, 'black', 10, 55, Math.PI / 4.5 * (1 - index / (final_beat_len + 1)), final_beat_len)
+
+            }
+            let drop_d = 800;
+            for (let index = 0; index <= drop_d; index += 20) {
+                await sleep(3);
+                ctx.clearRect(0, 0, w, h);
+                final_heart(ctx);
+                final_stay_heart(ctx, sx + 300, h / 2, 'black', 10, 55);
+                final_right_beat(ctx, sx + 300, h / 2, 'black', 10, 55);
+                beat_before(ctx, sx + 300, h / 2, 'black', 10, 55, Math.PI / 4.5 * (1 - 5.5 / (final_beat_len + 1)), final_beat_len);
+                drop_left(ctx, sx + 300, h / 2 + index, 'black', 55);
+
             }
         }
 
@@ -818,6 +871,186 @@
 
         }
 
+        function drawText(ctx, x, y, str, color, f) {
+            if (f)
+                ctx.font = '40px "黑体"';
+            else
+                ctx.font = '20px "黑体"';
+            ctx.fillStyle = color;
+            ctx.textBaseline = "top";
+            ctx.fillText(str, x, y);
+        }
+
+        function final_heart(ctx) {
+            let delta = 180;
+            ctx.beginPath();
+            ctx.save();
+            ctx.strokeStyle = "red";
+            ctx.lineWidth = 10;
+            ctx.fillStyle = "#f0bfc6";
+            ctx.shadowColor = "red";
+            ctx.shadowBlur = delta + 10;
+            ctx.lineJoin = "round";
+            ctx.lineCap = "round";
+            ctx.translate(sx + 300 + 65 - delta * 1.3, h / 2 + 55);
+            ctx.rotate(-45 * Math.PI / 180);
+            ctx.arc(delta, 0, delta, 0, 2 * Math.PI);
+            ctx.arc(2 * delta, delta, delta, 0, 2 * Math.PI);
+            ctx.rect(0, 0, 2 * delta, 2 * delta);
+            ctx.stroke();
+            ctx.fill();
+            ctx.restore();
+
+        }
+
+        function beat_before(ctx, x, y, color, r, l, ar, le) {
+            x += 150
+            ctx.beginPath();
+            ctx.arc(x, y, headSize, 0, 2 * Math.PI);
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 5;
+            ctx.lineJoin = "round";
+            ctx.lineCap = "round"
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.lineJoin = "round";
+            ctx.lineCap = "round";
+            ctx.moveTo(x - Math.sin(Math.PI / 6) * headSize, y + Math.cos(Math.PI / 6) * headSize);
+            ctx.lineTo(x - Math.sin(Math.PI / 6) * bodySize, y + Math.cos(Math.PI / 6) * bodySize);
+
+            ctx.moveTo(x + Math.sin(Math.PI / 6) * headSize, y + Math.cos(Math.PI / 6) * headSize);
+            ctx.lineTo(x + Math.sin(Math.PI / 6) * bodySize, y + Math.cos(Math.PI / 6) * bodySize);
+
+            ctx.moveTo(x - Math.sin(Math.PI / 6) * bodySize, y + Math.cos(Math.PI / 6) * bodySize);
+            ctx.lineTo(x + Math.sin(Math.PI / 6) * bodySize, y + Math.cos(Math.PI / 6) * bodySize);
+
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 5;
+            ctx.stroke();
+
+            //手臂
+            ctx.beginPath();
+            ctx.lineJoin = "round";
+            ctx.lineCap = "round";
+            //left
+            ctx.moveTo(x - Math.sin(Math.PI / 6) * bodySize / 2, y + Math.cos(Math.PI / 6) * bodySize / 2);
+
+            //ctx.lineTo(x - Math.sin(Math.PI / 6) * bodySize / 2 - Math.sin(Math.PI / 4.5) * armLength - l * 0.25, y + 45);
+            ctx.lineTo(x - Math.sin(Math.PI / 6) * bodySize / 2 - Math.sin(ar) * (armLength + le * 15) - l * 0.25, y + 45 - Math.cos(Math.PI / 2 - Math.PI / 4.5 + ar) * (armLength + le * 15));
+            //right
+
+            ctx.moveTo(x + Math.sin(Math.PI / 6) * bodySize / 2, y + Math.cos(Math.PI / 6) * bodySize / 2);
+            ctx.lineTo(x + Math.sin(Math.PI / 6) * bodySize / 2 + Math.sin(Math.PI / 4.5) * armLength - l * 2.5, y + 45);
+
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 5;
+            ctx.stroke();
+
+
+        }
+
+        function final_right_beat(ctx, x, y, color, r, l) {
+            x += 150
+            ctx.beginPath();
+            ctx.arc(x, y, headSize, 0, 2 * Math.PI);
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 5;
+            ctx.lineJoin = "round";
+            ctx.lineCap = "round"
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.lineJoin = "round";
+            ctx.lineCap = "round";
+            ctx.moveTo(x - Math.sin(Math.PI / 6) * headSize, y + Math.cos(Math.PI / 6) * headSize);
+            ctx.lineTo(x - Math.sin(Math.PI / 6) * bodySize, y + Math.cos(Math.PI / 6) * bodySize);
+
+            ctx.moveTo(x + Math.sin(Math.PI / 6) * headSize, y + Math.cos(Math.PI / 6) * headSize);
+            ctx.lineTo(x + Math.sin(Math.PI / 6) * bodySize, y + Math.cos(Math.PI / 6) * bodySize);
+
+            ctx.moveTo(x - Math.sin(Math.PI / 6) * bodySize, y + Math.cos(Math.PI / 6) * bodySize);
+            ctx.lineTo(x + Math.sin(Math.PI / 6) * bodySize, y + Math.cos(Math.PI / 6) * bodySize);
+
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 5;
+            ctx.stroke();
+
+            //手臂
+            ctx.beginPath();
+            ctx.lineJoin = "round";
+            ctx.lineCap = "round";
+
+            //right
+
+            ctx.moveTo(x + Math.sin(Math.PI / 6) * bodySize / 2, y + Math.cos(Math.PI / 6) * bodySize / 2);
+            ctx.lineTo(x + Math.sin(Math.PI / 6) * bodySize / 2 + Math.sin(Math.PI / 4.5) * armLength - l * 2.5, y + 45);
+
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 5;
+            ctx.stroke();
+
+        }
+
+        function final_stay_heart(ctx, x, y, color, r, l) {
+            ctx.beginPath();
+            ctx.save();
+            ctx.fillStyle = "red";
+            ctx.shadowColor = "red";
+            ctx.shadowBlur = 20;
+            ctx.lineJoin = "round";
+            ctx.lineCap = "round";
+            ctx.translate(x + l, y + 45);
+            ctx.rotate(-45 * Math.PI / 180);
+            ctx.arc(r, 0, r, 0, 2 * Math.PI);
+            ctx.arc(2 * r, r, r, 0, 2 * Math.PI);
+            ctx.rect(0, 0, 2 * r, 2 * r);
+            ctx.fill();
+            ctx.restore();
+
+        }
+
+        function drop_left(ctx, x, y, color, l) {
+            ctx.beginPath();
+            ctx.arc(x, y, headSize, 0, 2 * Math.PI);
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 5;
+            ctx.lineJoin = "round";
+            ctx.lineCap = "round"
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.lineJoin = "round";
+            ctx.lineCap = "round";
+            ctx.moveTo(x - Math.sin(Math.PI / 6) * headSize, y + Math.cos(Math.PI / 6) * headSize);
+            ctx.lineTo(x - Math.sin(Math.PI / 6) * bodySize, y + Math.cos(Math.PI / 6) * bodySize);
+
+            ctx.moveTo(x + Math.sin(Math.PI / 6) * headSize, y + Math.cos(Math.PI / 6) * headSize);
+            ctx.lineTo(x + Math.sin(Math.PI / 6) * bodySize, y + Math.cos(Math.PI / 6) * bodySize);
+
+            ctx.moveTo(x - Math.sin(Math.PI / 6) * bodySize, y + Math.cos(Math.PI / 6) * bodySize);
+            ctx.lineTo(x + Math.sin(Math.PI / 6) * bodySize, y + Math.cos(Math.PI / 6) * bodySize);
+
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 5;
+            ctx.stroke();
+
+            //手臂
+            ctx.beginPath();
+            ctx.lineJoin = "round";
+            ctx.lineCap = "round";
+            //left
+            ctx.moveTo(x - Math.sin(Math.PI / 6) * bodySize / 2, y + Math.cos(Math.PI / 6) * bodySize / 2);
+            ctx.lineTo(x + l, y + 45);
+            //right
+
+            ctx.moveTo(x + Math.sin(Math.PI / 6) * bodySize / 2, y + Math.cos(Math.PI / 6) * bodySize / 2);
+            ctx.lineTo(x + l, y + 45);
+
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 5;
+            ctx.stroke();
+        }
 
         draw();
     </script>
