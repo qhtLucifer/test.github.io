@@ -27,7 +27,7 @@
         let screenH = document.documentElement.clientHeight; //屏幕高度
         h = screenH;
         w = screenW;
-        var rx = w / 2 + 250,
+        var rx = w / 2 + 150,
             ry = h / 2;
         let gameW = 1529,
             gameH = 832; //标准分辨率,也就是你开发时的分辨率 TODO:这里可以自行修改
@@ -53,7 +53,7 @@
         canvas.height = screenH;
 
         async function draw() {
-            sx = w / 2 - 100;
+            sx = w / 2 - 200;
             f1(ctx, sx, h / 2, 'black', 10)
 
             await sleep(150)
