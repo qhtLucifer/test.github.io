@@ -132,7 +132,7 @@
             final_heart(ctx);
             final_left(ctx, sx + 300, h / 2, 'black', 10, 55);
             final_right(ctx, sx + 300, h / 2, 'black', 10, 55);
-            drawText(ctx, sx + 100, h / 2 - 100, "要饭还嫌粥凉", 'black', false);
+            drawText(ctx, sx + 200, h / 2 - 100, "要饭还嫌粥凉", 'black', false);
             await sleep(2000);
             let final_beat_len = 10;
             for (let index = 0; index <= final_beat_len; index += 0.5) {
@@ -154,7 +154,7 @@
                 beat_before(ctx, sx + 300, h / 2, 'black', 10, 55, Math.PI / 4.5 * (1 - index / (final_beat_len + 1)), final_beat_len)
 
             }
-            let drop_d = 800;
+            let drop_d = 2000;
             for (let index = 0; index <= drop_d; index += 20) {
                 await sleep(3);
                 ctx.clearRect(0, 0, w, h);
